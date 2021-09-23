@@ -6,11 +6,30 @@
       <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item...">
     </form>  
   </div>
-  <div class="todo-container">
-    <ul v-if="todos.length">
-      <todo-item></todo-item>
-    </ul>
-    <p v-else>You have no items in your todo list. Create an item to begin tracking your list.</p>
+  <!-- Convert section into separate component and use provide/inject to pass data? -->
+  <div class="todo-container" v-if="todos.length">
+    <todo-item 
+      v-for="(item, index) in todos" :key="index"
+      :todoId="index"
+      :todoText="item"
+    ></todo-item>
+    <div class="todo-footer">
+      <!-- Needs update -->
+      <div class="todo-footer__item">
+        <p>{{ todos.length }} items left</p>
+      </div>
+      <div class="todo-footer__item">
+        <button>All</button>
+        <button>Active</button>
+        <button>Completed</button>
+      </div>
+      <div class="todo-footer__item">
+        <button @click="clearTodos">Clear Completed</button>
+      </div>
+    </div>
+  </div>
+  <div class="default-message" v-else>
+    <p>You have no items in your todo list. Create an item to begin tracking your list.</p>
   </div>
 </template>
 
@@ -24,7 +43,12 @@ export default {
   },
   data() {
     return {
-      todos: []
+      todos: ['test', 'test 2']
+    }
+  },
+  methods: {
+    clearTodos() {
+      this.todos.length = 0
     }
   }
 }
@@ -39,6 +63,8 @@ export default {
 
 .todo-header {
   width: 100%;
+  padding-top: 10rem;
+  margin-bottom: 5rem;
 
   h1 {
     color: $white;
@@ -73,4 +99,34 @@ form {
   }
 
 }
+
+.todo-container {
+  background-color: $dark-bg;
+  border-radius: 0.5rem;
+  min-height: 15rem;
+}
+
+.todo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 7rem;
+  padding: 0 1.5rem;
+
+  &__item {
+
+  }
+}
+
+.default-message {
+  background-color: $dark-bg;
+  border-radius: 0.5rem;
+  min-height: 15rem;
+
+  p {
+    color: $white;
+    font-size: 2rem;
+  }  
+}
+
 </style>
