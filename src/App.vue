@@ -3,7 +3,7 @@
     <h1>Todo</h1>
     <form @submit.prevent="submitTodo" ref="todoForm">
       <button class="todo-submit__btn"></button>
-      <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item..." ref="todoInput">
+      <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item..." aria-label="Input Todo" ref="todoInput">
     </form>  
   </div>
   <todo-list v-if="todos.length"></todo-list>
