@@ -6,17 +6,16 @@
       :todoText="item"
     ></todo-item>
     <div class="todo-footer">
-      <!-- Needs update -->
       <div class="todo-footer__item">
-        <p>{{ todosList.length }} items left</p>
+        <p>{{ remainingItems }}</p>
       </div>
       <div class="todo-footer__item">
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button class="todo-footer__button">All</button>
+        <button class="todo-footer__button">Active</button>
+        <button class="todo-footer__button">Completed</button>
       </div>
       <div class="todo-footer__item">
-        <button @click="clearTodos">Clear Completed</button>
+        <button class="todo-footer__button" @click="clearTodos">Clear Completed</button>
       </div>
     </div>
   </div>
@@ -33,6 +32,15 @@ export default {
   methods: {
     clearTodos() {
       this.todosList.length = 0
+    }
+  },
+  computed: {
+    remainingItems() {
+      if (this.todosList.length === 1) {
+        return `${this.todosList.length} item left`
+      } else {
+        return `${this.todosList.length} items left`
+      }
     }
   }
 }
@@ -59,14 +67,28 @@ export default {
 }
 
 .todo-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex(center, space-between);
   height: 7rem;
   padding: 0 1.5rem;
 
   &__item {
-
+    color: $gray;
+    font-weight: 600;
   }
+
+  &__button {
+    background: none;
+    border: none;
+    color: $gray;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      color: $light-blue;
+    }
+  }
+
 }
 </style>
