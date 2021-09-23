@@ -1,9 +1,9 @@
 <template>
   <div class="todo-header">
     <h1>Todo</h1>
-    <form>
+    <form @submit.prevent="submitTodo" ref="todoForm">
       <button class="todo-submit__btn"></button>
-      <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item...">
+      <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item..." ref="todoInput">
     </form>  
   </div>
   <todo-list v-if="todos.length"></todo-list>
@@ -28,6 +28,16 @@ export default {
   provide() {
     return {
       todosList: this.todos
+    }
+  },
+  methods: {
+    submitTodo() {
+      if (this.$refs.todoInput.value !== '') {
+        this.todos.push(this.$refs.todoInput.value)
+        this.$refs.todoForm.reset()
+      } else {
+        return null
+      }
     }
   }
 }
