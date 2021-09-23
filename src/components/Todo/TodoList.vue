@@ -86,7 +86,7 @@ export default {
     cursor: pointer;
 
     &:hover {
-      color: $light-blue;
+      color: $white;
     }
   }
 

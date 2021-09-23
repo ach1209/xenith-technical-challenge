@@ -6,6 +6,7 @@
 
 <style lang="scss" scoped>
 .default-message {
+  @include flex(center, center);
   background-color: $dark-bg;
   border-radius: 0.5rem;
   min-height: 15rem;
@@ -13,6 +14,8 @@
   p {
     color: $white;
     font-size: 2rem;
+    text-align: center;
+    max-width: 45rem;    
   }  
 }
 </style>
