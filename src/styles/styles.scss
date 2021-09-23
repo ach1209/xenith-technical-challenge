@@ -13,6 +13,11 @@ html {
 }
 
 body {
+  background-image: linear-gradient(to right bottom, rgba($gradient1, 0.87), rgba($gradient2, 0.73)), url('../assets/bg__trees.png');
+  background-size: 100vw 50%;
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-color: $darker-bg;
   font-family: 'Inter', sans-serif;
   font-size: 1.6rem;
 }
