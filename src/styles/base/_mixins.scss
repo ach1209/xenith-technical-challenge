@@ -3,3 +3,7 @@
   align-items: $align;
   justify-content: $justify;
 }
+
+@mixin box-shadow($color: $white, $transparency: 0.2) {
+  box-shadow: 0 0 4px 0 rgba($color, $transparency);
+}

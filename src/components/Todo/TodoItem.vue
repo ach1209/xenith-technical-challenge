@@ -39,7 +39,7 @@ export default {
     cursor: pointer;
 
     &:hover {
-      border: 1px solid $gradient1;
+      border-color: $gradient1;
     }
 
     &:checked {
