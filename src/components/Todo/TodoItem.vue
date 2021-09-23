@@ -1,10 +1,13 @@
 <template>
   <div class="todo-item">
-    <input type="checkbox" :name="todoText" :id="todoText">
-    <label :for="todoText">{{ todoId }} {{ todoText }}</label>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"/>
-    </svg>
+    <input type="checkbox" :name="todoText" :id="todoId" aria-label="Todo Item">
+    <label :for="todoText">{{ todoText }}</label>
+    <button class="todo-item__btn" @click="removeItem">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"/>
+      </svg>      
+    </button>
+
   </div>
 </template>
 
@@ -16,6 +19,13 @@ export default {
     },
     todoId: {
       type: Number
+    }
+  },
+  inject: ['todosList'],
+  methods: {
+    removeItem() {
+      const itemIndex = this.todosList.indexOf(this.todoText)
+      this.todosList.splice(itemIndex, 1)
     }
   }
 }
@@ -72,14 +82,21 @@ export default {
     margin-left: 2rem;
   }
 
-  svg {
-    margin-left: auto;
-    fill: $gray;
-    cursor: pointer;
+  &__btn {
+    @include flex(center);
+    margin-left: auto;    
+    background: none;
+    border: none;
 
-    &:hover path {
-      fill: $white;
-    }
+    svg {
+      fill: $gray;
+      cursor: pointer;
+
+      &:hover path {
+        fill: $white;
+      }
+    }    
   }
+
 }
 </style>
