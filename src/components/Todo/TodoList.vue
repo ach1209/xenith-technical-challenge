@@ -80,10 +80,11 @@ export default {
   },
   computed: {
     remainingItems() {
-      if (this.todosList.length === 1) {
+      const completed = this.todosList.filter(todo => todo.isComplete === true)
+      if (this.todosList.length - completed.length === 1) {
         return '1 item left'
       } else {
-        return `${this.todosList.length} items left`
+        return `${this.todosList.length - completed.length} items left`
       }
     },
     filterTodos() {
