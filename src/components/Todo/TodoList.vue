@@ -1,7 +1,7 @@
 <template>
   <div class="todo-container">
     <todo-item 
-      v-for="(item, index) in todosList" :key="index"
+      v-for="(item, index) in filterTodos" :key="index"
       :todoId="index"
       :todoText="item.task"
     ></todo-item>
@@ -24,7 +24,7 @@
         >Completed</button>
       </div>
       <div class="todo-footer__item todo-footer__item--end">
-        <button class="todo-footer__button" @click="clearTodos">Clear Completed</button>
+        <button class="todo-footer__button" @click="clearCompletedTodos">Clear Completed</button>
       </div>
     </div>
   </div>
@@ -38,14 +38,23 @@ export default {
     TodoItem
   },
   inject: ['todosList'],
+  provide() {
+    return {
+      filteredList: this.filterTodos
+    }
+  },
   data() {
     return {
       filter: 'all'
     }
   },
   methods: {
-    clearTodos() {
-      this.todosList.length = 0
+    clearCompletedTodos() {
+      for(let i = 0; i < this.todosList.length; i++) {
+        if (this.todosList[i].isComplete === true) {
+          this.todosList.splice(i, 1)
+        }
+      }
     },
     setFilter(filter) {
       this.filter = filter
@@ -58,6 +67,25 @@ export default {
       } else {
         return `${this.todosList.length} items left`
       }
+    },
+    filterTodos() {
+      let filteredTodos = []
+      if (this.filter === 'active') {
+        this.todosList.find(todo => {
+          if (todo.isComplete === false) {
+            filteredTodos.push(todo)
+          }
+        })
+      } else if (this.filter === 'completed') {
+        this.todosList.find(todo => {
+          if (todo.isComplete === true) {
+            filteredTodos.push(todo)
+          }
+        })
+      } else {
+        filteredTodos = this.todosList
+      }
+      return filteredTodos
     }
   }
 }
