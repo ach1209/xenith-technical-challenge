@@ -9,12 +9,21 @@
       <div class="todo-footer__item">
         <p>{{ remainingItems }}</p>
       </div>
-      <div class="todo-footer__item">
-        <button class="todo-footer__button">All</button>
-        <button class="todo-footer__button">Active</button>
-        <button class="todo-footer__button">Completed</button>
+      <div class="todo-footer__item todo-footer__item--even">
+        <button 
+          class="todo-footer__button" @click="setFilter('all')" 
+          :class="{ 'todo-footer__button--active': filter === 'all' }"
+        >All</button>
+        <button 
+          class="todo-footer__button" @click="setFilter('active')" 
+          :class="{ 'todo-footer__button--active': filter === 'active' }"
+        >Active</button>
+        <button 
+          class="todo-footer__button" @click="setFilter('completed')" 
+          :class="{ 'todo-footer__button--active': filter === 'completed' }"
+        >Completed</button>
       </div>
-      <div class="todo-footer__item">
+      <div class="todo-footer__item todo-footer__item--end">
         <button class="todo-footer__button" @click="clearTodos">Clear Completed</button>
       </div>
     </div>
@@ -29,9 +38,17 @@ export default {
     TodoItem
   },
   inject: ['todosList'],
+  data() {
+    return {
+      filter: 'all'
+    }
+  },
   methods: {
     clearTodos() {
       this.todosList.length = 0
+    },
+    setFilter(filter) {
+      this.filter = filter
     }
   },
   computed: {
@@ -72,8 +89,17 @@ export default {
   padding: 0 1.5rem;
 
   &__item {
+    flex: 0.3;
     color: $gray;
     font-weight: 600;
+
+    &--even {
+      @include flex(null, space-evenly);
+    }
+
+    &--end {
+      @include flex(null, flex-end);
+    }
   }
 
   &__button {
@@ -84,6 +110,10 @@ export default {
     font-size: 1.6rem;
     font-weight: 600;
     cursor: pointer;
+
+    &--active {
+      color: $light-blue;
+    }
 
     &:hover {
       color: $white;
