@@ -109,12 +109,14 @@ export default {
   background-color: $dark-bg;
   border-radius: 0.5rem;
   min-height: 15rem;
+  display: grid;
 }
 
 .todo-footer {
   @include flex(center, space-between);
   height: 7rem;
   padding: 0 1.5rem;
+  align-self: center;
 
   &__item {
     flex: 0.3;
