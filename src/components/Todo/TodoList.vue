@@ -56,11 +56,6 @@ export default {
     TodoItem
   },
   inject: ['todosList'],
-  provide() {
-    return {
-      filteredList: this.filterTodos
-    }
-  },
   data() {
     return {
       filter: 'all'
