@@ -160,7 +160,7 @@ export default {
     background: none;
     border: none;
     color: $gray;
-    font-family: 'Inter', sans-serif;
+    font-family: $primaryFont;
     font-size: 1.6rem;
     font-weight: 600;
     cursor: pointer;
