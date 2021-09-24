@@ -1,6 +1,6 @@
 <template>
   <div class="todo-item">
-    <input type="checkbox" :name="todoText" :id="todoId" aria-label="Todo Item">
+    <input type="checkbox" :name="todoText" :id="todoId" aria-label="Todo Item" ref="toggle" @click="toggleComplete">
     <label :for="todoText">{{ todoText }}</label>
     <button class="todo-item__btn" @click="removeItem">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,9 +24,20 @@ export default {
   inject: ['todosList'],
   methods: {
     removeItem() {
-      const itemIndex = this.todosList.indexOf(this.todoText)
+      const itemIndex = this.todosList.findIndex(todo => todo.task === this.todoText)
       this.todosList.splice(itemIndex, 1)
-    }
+    },
+    toggleComplete() {
+      const todoStatus = this.$refs.toggle.checked
+
+      this.todosList.findIndex(todo => {
+        if (todo.task === this.todoText) {
+          todo.isComplete = todoStatus
+        } else {
+          return null
+        }
+      })
+    }    
   }
 }
 </script>
