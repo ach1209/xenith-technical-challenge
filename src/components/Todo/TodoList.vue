@@ -3,7 +3,7 @@
     <todo-item 
       v-for="(item, index) in todosList" :key="index"
       :todoId="index"
-      :todoText="item"
+      :todoText="item.task"
     ></todo-item>
     <div class="todo-footer">
       <div class="todo-footer__item">
@@ -37,7 +37,7 @@ export default {
   computed: {
     remainingItems() {
       if (this.todosList.length === 1) {
-        return `${this.todosList.length} item left`
+        return '1 item left'
       } else {
         return `${this.todosList.length} items left`
       }

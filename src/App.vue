@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      todos: ['test', 'test 2']
+      todos: []
     }
   },
   provide() {
@@ -33,7 +33,12 @@ export default {
   methods: {
     submitTodo() {
       if (this.$refs.todoInput.value !== '') {
-        this.todos.push(this.$refs.todoInput.value)
+        const todo = {
+          task: this.$refs.todoInput.value,
+          isComplete: false
+        }
+
+        this.todos.push(todo)
         this.$refs.todoForm.reset()
       } else {
         return null
