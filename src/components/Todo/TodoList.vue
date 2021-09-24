@@ -9,7 +9,7 @@
       <div class="todo-footer__item">
         <p>{{ remainingItems }}</p>
       </div>
-      <div class="todo-footer__item todo-footer__item--even">
+      <div class="todo-footer__item todo-footer__item--even todo-footer__item--desktop">
         <button 
           class="todo-footer__button" @click="setFilter('all')" 
           :class="{ 'todo-footer__button--active': filter === 'all' }"
@@ -27,6 +27,24 @@
         <button class="todo-footer__button" @click="clearCompletedTodos">Clear Completed</button>
       </div>
     </div>
+    <teleport to="#app">
+      <div class="todo-footer-mobile">
+        <div class="todo-footer-mobile-container">
+          <button 
+            class="todo-footer__button" @click="setFilter('all')" 
+            :class="{ 'todo-footer__button--active': filter === 'all' }"
+          >All</button>
+          <button 
+            class="todo-footer__button" @click="setFilter('active')" 
+            :class="{ 'todo-footer__button--active': filter === 'active' }"
+          >Active</button>
+          <button 
+            class="todo-footer__button" @click="setFilter('completed')" 
+            :class="{ 'todo-footer__button--active': filter === 'completed' }"
+          >Completed</button>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -92,24 +110,20 @@ export default {
 </script>
 
 <style lang="scss">
-.todo-header {
-  width: 100%;
-  padding-top: 10rem;
-  margin-bottom: 5rem;
-
-  h1 {
-    color: $white;
-    text-transform: uppercase;
-    letter-spacing: 0.5rem;
-    margin: 2rem 0;
-  }
-}
-
 .todo-container {
   background-color: $dark-bg;
   border-radius: 0.5rem;
-  min-height: 15rem;
+  min-height: 7rem;
   display: grid;
+  margin: 0 2rem;
+
+  @include device-medium-small {
+    min-height: 15rem;
+  }
+
+  @include device-medium {
+    margin: 0;
+  }
 }
 
 .todo-footer {
@@ -119,12 +133,26 @@ export default {
   align-self: center;
 
   &__item {
-    flex: 0.3;
+    flex: 0.5;
     color: $gray;
     font-weight: 600;
 
+    @include device-medium-small {
+      flex: 0.3;
+    }
+
+    &--desktop {
+      display: none;
+
+      @include device-medium-small {
+        display: block;
+      }
+    }
+
     &--even {
-      @include flex(null, space-evenly);
+      @include device-medium-small {
+        @include flex(null, space-evenly);
+      }
     }
 
     &--end {
@@ -149,6 +177,28 @@ export default {
       color: $white;
     }
   }
+}
 
+.todo-footer-mobile {
+  display: block;
+  margin-top: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding: 0 1.5rem;
+  background-color: $dark-bg;
+  border-radius: 0.5rem;
+
+  @include device-medium-small {
+    display: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &-container {
+    @include flex(center, space-evenly);
+    max-width: 30rem;
+    height: 7rem;
+    margin: 0 auto;
+  }
 }
 </style>

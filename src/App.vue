@@ -55,6 +55,26 @@ export default {
   margin: 0 auto;
 }
 
+.todo-header {
+  width: 100%;
+  padding-top: 10rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-bottom: 5rem;
+
+  @include device-medium {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  h1 {
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+    margin: 2rem 0;
+  }
+}
+
 form {
   @include flex(center);
   background-color: $dark-bg;
@@ -62,7 +82,7 @@ form {
   padding: 0 1.5rem;
 
   &:focus-within {
-    @include box-shadow($white, 0.8)
+    @include box-shadow($white, 0.8);
   }
 
   .todo-submit__btn {

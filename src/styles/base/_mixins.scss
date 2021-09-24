@@ -7,3 +7,15 @@
 @mixin box-shadow($color: $white, $transparency: 0.2) {
   box-shadow: 0 0 4px 0 rgba($color, $transparency);
 }
+
+@mixin device-medium {
+  @media screen and (min-width: #{$screen-medium}) {
+    @content;
+  }
+}
+
+@mixin device-medium-small {
+  @media screen and (min-width: #{$screen-medium-small}) {
+    @content;
+  }
+}
