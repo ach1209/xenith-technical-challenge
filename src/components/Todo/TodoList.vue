@@ -117,10 +117,6 @@ export default {
   display: grid;
   margin: 0 2rem;
 
-  @include device-medium-small {
-    min-height: 15rem;
-  }
-
   @include device-medium {
     margin: 0;
   }
