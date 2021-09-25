@@ -83,21 +83,11 @@ export default {
       }
     },
     filterTodos() {
-      let filteredTodos = []
+      let filteredTodos = this.todosList
       if (this.filter === 'active') {
-        this.todosList.find(todo => {
-          if (todo.isComplete === false) {
-            filteredTodos.push(todo)
-          }
-        })
+        filteredTodos = filteredTodos.filter(todo => todo.isComplete === false)
       } else if (this.filter === 'completed') {
-        this.todosList.find(todo => {
-          if (todo.isComplete === true) {
-            filteredTodos.push(todo)
-          }
-        })
-      } else {
-        filteredTodos = this.todosList
+        filteredTodos = filteredTodos.filter(todo => todo.isComplete === true)
       }
       return filteredTodos
     }
