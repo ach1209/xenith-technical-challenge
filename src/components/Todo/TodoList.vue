@@ -1,8 +1,8 @@
 <template>
   <div class="todo-container">
     <todo-item 
-      v-for="(item, index) in filterTodos" :key="index"
-      :todoId="index"
+      v-for="item in filterTodos" :key="item.id"
+      :todoId="item.id"
       :todoText="item.task"
     ></todo-item>
     <div class="todo-footer">
@@ -63,14 +63,17 @@ export default {
   },
   methods: {
     clearCompletedTodos() {
-      for(let i = 0; i < this.todosList.length; i++) {
-        if (this.todosList[i].isComplete === true) {
-          this.todosList.splice(i, 1)
-        }
-      }
+      this.todosList = this.todosList.filter(todo => !todo.isComplete)
+      
+      // todosList is not reactive due to Provide/Inject
+      // Need to force re-render the DOM to reflect filtered data
+      // https://michaelnthiessen.com/force-re-render/
+
+      this.filter = ''
+      this.$nextTick(() => this.filter = 'all')
     },
-    setFilter(filter) {
-      this.filter = filter
+    setFilter(val) {
+      this.filter = val
     }
   },
   computed: {
@@ -83,13 +86,12 @@ export default {
       }
     },
     filterTodos() {
-      let filteredTodos = this.todosList
       if (this.filter === 'active') {
-        filteredTodos = filteredTodos.filter(todo => todo.isComplete === false)
+        return this.todosList.filter(todo => todo.isComplete === false)
       } else if (this.filter === 'completed') {
-        filteredTodos = filteredTodos.filter(todo => todo.isComplete === true)
+        return this.todosList.filter(todo => todo.isComplete === true)
       }
-      return filteredTodos
+      return this.todosList
     }
   }
 }

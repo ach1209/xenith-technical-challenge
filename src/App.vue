@@ -35,7 +35,8 @@ export default {
       if (this.$refs.todoInput.value !== '') {
         const todo = {
           task: this.$refs.todoInput.value,
-          isComplete: false
+          isComplete: false,
+          id: JSON.parse(Math.random().toPrecision(5))
         }
 
         this.todos.push(todo)
