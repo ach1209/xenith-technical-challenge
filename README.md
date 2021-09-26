@@ -19,6 +19,8 @@ npm install
 npm run serve
 ```
 
+The application will be accessible through `localhost:8080`
+
 ## What I learned from this project
 
 **Force re-rendering a component**
@@ -26,6 +28,8 @@ npm run serve
 
 ## What I would like to improve On
 
-I would like to improve passing data effectively for this project. I think my method of using provide/inject caused more difficulty than it should. I did think about using Vuex or Pinia to handle state changes but I felt it would've been overkill.
+I would like to improve on passing data effectively for this project. I used provide/inject in this project because I wanted to avoid prop drilling data through my components. I think my method caused more difficulty than it should. I did think about using Vuex or Pinia to handle state changes but I felt it would've been overkill.
 
-For future iterations of this project, I would like to incorporate TypeScript and unit testing for better code quality.
+The TodoList.vue component could definitely be improved on. I felt as though there was a lot of duplicate code especially with how I created a separate section for the filter buttons in order to the mobile design.
+
+For future iterations of this project, I would like to incorporate TypeScript and unit testing for better code quality. Those are two things that I'm still learning, but haven't quite had the confidence to implement in any project yet. Since I used Vue 3 for this project, I think I would also convert all the code to use the Composition API instead of the Options API to make better use of the new reactivity system.
