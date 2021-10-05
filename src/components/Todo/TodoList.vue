@@ -4,7 +4,7 @@
     <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item..." aria-label="Input Todo" ref="todoInput">
   </form>
   <div class="todo-container" v-if="todos.length">
-    <todo-item v-for="item in filterTodos" :key="item.id" :todoId="item.id" :todoText="item.task"></todo-item>
+    <todo-item v-for="item in filterTodos" :key="item.id" :todoId="item.id" :todoText="item.task" :todoComplete="item.isComplete"></todo-item>
     <div class="todo-footer">
       <div class="todo-footer__item">
         <p>{{ remainingItems }}</p>

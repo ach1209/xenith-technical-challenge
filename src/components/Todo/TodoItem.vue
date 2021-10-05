@@ -1,6 +1,6 @@
 <template>
   <div class="todo-item">
-    <input type="checkbox" :name="todoText" :id="todoId" aria-label="Todo Item" ref="toggle" @click="toggleComplete">
+    <input type="checkbox" :name="todoText" :id="todoId" :checked="todoComplete" aria-label="Todo Item" ref="toggle" @click="toggleComplete">
     <label :for="todoText">{{ todoText }}</label>
     <button class="todo-item__btn" @click="removeItem">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,6 +18,9 @@ export default {
     },
     todoId: {
       type: Number
+    },
+    todoComplete: {
+      type: Boolean
     }
   },
   methods: {
