@@ -20,16 +20,15 @@ export default {
       type: Number
     }
   },
-  inject: ['todosList'],
   methods: {
     removeItem() {
-      const itemIndex = this.todosList.findIndex(todo => todo.task === this.todoText)
-      this.todosList.splice(itemIndex, 1)
+      const itemIndex = this.$parent.$data.todos.findIndex(todo => todo.task === this.todoText)
+      this.$parent.$data.todos.splice(itemIndex, 1)
     },
     toggleComplete() {
       const todoStatus = this.$refs.toggle.checked
 
-      this.todosList.findIndex(todo => {
+      this.$parent.$data.todos.findIndex(todo => {
         if (todo.task === this.todoText) {
           todo.isComplete = todoStatus
         } else {
