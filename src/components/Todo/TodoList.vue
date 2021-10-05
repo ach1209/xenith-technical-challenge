@@ -4,7 +4,7 @@
     <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item..." aria-label="Input Todo" ref="todoInput">
   </form>
   <div class="todo-container" v-if="todos.length">
-    <todo-item v-for="item in todos" :key="item.id" :todoId="item.id" :todoText="item.task"></todo-item>
+    <todo-item v-for="item in filterTodos" :key="item.id" :todoId="item.id" :todoText="item.task"></todo-item>
     <div class="todo-footer">
       <div class="todo-footer__item">
         <p>{{ remainingItems }}</p>
@@ -101,14 +101,14 @@ export default {
         return `${this.todos.length - completed.length} items left`
       }
     },
-    // filterTodos() {
-    //   if (this.filter === 'active') {
-    //     return this.todosList.filter(todo => todo.isComplete === false)
-    //   } else if (this.filter === 'completed') {
-    //     return this.todosList.filter(todo => todo.isComplete === true)
-    //   }
-    //   return this.todosList
-    // }
+    filterTodos() {
+      if (this.filter === 'active') {
+        return this.todos.filter(todo => todo.isComplete === false)
+      } else if (this.filter === 'completed') {
+        return this.todos.filter(todo => todo.isComplete === true)
+      }
+      return this.todos
+    }
   }
 }
 </script>
