@@ -1,10 +1,10 @@
 <template>
-  <div class="todo-container">
-    <todo-item 
-      v-for="item in filterTodos" :key="item.id"
-      :todoId="item.id"
-      :todoText="item.task"
-    ></todo-item>
+  <form @submit.prevent="submitTodo" ref="todoForm">
+    <button class="todo-submit__btn"></button>
+    <input type="text" name="todo-input" id="todo-input" placeholder="Create a new item..." aria-label="Input Todo" ref="todoInput">
+  </form>
+  <div class="todo-container" v-if="todos.length">
+    <todo-item v-for="item in todos" :key="item.id" :todoId="item.id" :todoText="item.task"></todo-item>
     <div class="todo-footer">
       <div class="todo-footer__item">
         <p>{{ remainingItems }}</p>
@@ -46,58 +46,135 @@
       </div>
     </teleport>
   </div>
+  <app-message v-else></app-message>
 </template>
 
 <script>
 import TodoItem from './TodoItem.vue'
+import AppMessage from '../Message/AppMessage.vue'
 
 export default {
   components: {
-    TodoItem
+    TodoItem,
+    AppMessage
   },
-  inject: ['todosList'],
   data() {
     return {
+      todos: [
+        {
+          id: 0,
+          task: 'blah',
+          isComplete: false
+        }
+      ],
       filter: 'all'
     }
   },
   methods: {
-    clearCompletedTodos() {
-      this.todosList = this.todosList.filter(todo => !todo.isComplete)
-      
-      // todosList is not reactive due to Provide/Inject
-      // Need to force re-render the DOM to reflect filtered data
-      // https://michaelnthiessen.com/force-re-render/
+    submitTodo() {
+      if (this.$refs.todoInput.value !== '') {
+        const todo = {
+          task: this.$refs.todoInput.value,
+          isComplete: false,
+          id: JSON.parse(Math.random().toPrecision(5))
+        }
 
-      this.filter = ''
-      this.$nextTick(() => this.filter = 'all')
+        this.todos.push(todo)
+        this.$refs.todoForm.reset()
+      } else {
+        return null
+      }
     },
+    // clearCompletedTodos() {
+    //   this.todosList = this.todosList.filter(todo => !todo.isComplete)
+      
+    //   // todosList is not reactive due to Provide/Inject
+    //   // Need to force re-render the DOM to reflect filtered data
+    //   // https://michaelnthiessen.com/force-re-render/
+
+    //   this.filter = ''
+    //   this.$nextTick(() => this.filter = 'all')
+    // },
     setFilter(val) {
       this.filter = val
     }
   },
   computed: {
     remainingItems() {
-      const completed = this.todosList.filter(todo => todo.isComplete === true)
-      if (this.todosList.length - completed.length === 1) {
+      const completed = this.todos.filter(todo => todo.isComplete === true)
+      if (this.todos.length - completed.length === 1) {
         return '1 item left'
       } else {
-        return `${this.todosList.length - completed.length} items left`
+        return `${this.todos.length - completed.length} items left`
       }
     },
-    filterTodos() {
-      if (this.filter === 'active') {
-        return this.todosList.filter(todo => todo.isComplete === false)
-      } else if (this.filter === 'completed') {
-        return this.todosList.filter(todo => todo.isComplete === true)
-      }
-      return this.todosList
-    }
+    // filterTodos() {
+    //   if (this.filter === 'active') {
+    //     return this.todosList.filter(todo => todo.isComplete === false)
+    //   } else if (this.filter === 'completed') {
+    //     return this.todosList.filter(todo => todo.isComplete === true)
+    //   }
+    //   return this.todosList
+    // }
   }
 }
 </script>
 
 <style lang="scss">
+form {
+  @include flex(center);
+  background-color: $dark-bg;
+  border-radius: 0.5rem;
+  padding: 0 1.5rem;
+  margin-bottom: 5rem;
+
+  &:focus-within {
+    @include box-shadow($white, 0.8);
+  }
+
+  .todo-submit__btn {
+    content: "";
+    transform: scale(1.5);
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 1px solid $gray;
+    border-radius: 100%;
+    background: none;
+    cursor: pointer;
+    padding-inline: 0.75rem; // Makes the button size the same as checkbox size
+
+    &:hover {
+      border-color: $gradient1;
+    }
+  }
+
+  input[type="text"] {
+    width: 100%;
+    height: 6rem;
+    background-color: $dark-bg;
+    border: none;
+    border-radius: 0.5rem;
+    color: $white;
+    font-family: $primaryFont;
+    font-size: 2rem;
+    letter-spacing: 0.1rem;
+    margin-left: 2rem;
+
+    &::placeholder {
+      color: $gray;
+      opacity: 1; /* Resolves transparency in Firefox */
+    }
+
+    &:focus {
+      outline: none;
+
+      &::placeholder {
+        color: $white;
+      }      
+    }
+  }
+}
+
 .todo-container {
   background-color: $dark-bg;
   border-radius: 0.5rem;
