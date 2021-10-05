@@ -60,13 +60,7 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 0,
-          task: 'blah',
-          isComplete: false
-        }
-      ],
+      todos: [],
       filter: 'all'
     }
   },
