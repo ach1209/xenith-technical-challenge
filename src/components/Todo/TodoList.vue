@@ -85,16 +85,9 @@ export default {
         return null
       }
     },
-    // clearCompletedTodos() {
-    //   this.todosList = this.todosList.filter(todo => !todo.isComplete)
-      
-    //   // todosList is not reactive due to Provide/Inject
-    //   // Need to force re-render the DOM to reflect filtered data
-    //   // https://michaelnthiessen.com/force-re-render/
-
-    //   this.filter = ''
-    //   this.$nextTick(() => this.filter = 'all')
-    // },
+    clearCompletedTodos() {
+      this.todos = this.todos.filter(todo => !todo.isComplete)
+    },
     setFilter(val) {
       this.filter = val
     }
