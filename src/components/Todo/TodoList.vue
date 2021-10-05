@@ -120,6 +120,13 @@ form {
   border-radius: 0.5rem;
   padding: 0 1.5rem;
   margin-bottom: 5rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+  @include device-medium {
+    margin-left: 0;
+    margin-right: 0;
+  }
 
   &:focus-within {
     @include box-shadow($white, 0.8);
