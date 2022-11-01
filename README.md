@@ -1,8 +1,5 @@
 # xenith-technical-challenge
 
-## View the project through your browser
-https://xenith-technical.firebaseapp.com/
-
 ## Updates
 10/5/2021 - Fixed issues with the old project. No longer uses provide/inject to pass data
 
